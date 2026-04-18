@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Something For You 🔑</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --rose:    #f43f72;
+      --blush:   #fde8ef;
+      --lavender:#c4b5fd;
+      --ink:     #2d1b33;
+      --mist:    #f9f4ff;
+      --card-bg: rgba(255,255,255,0.72);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      padding-left: 10%;
+      background: var(--mist);
+      overflow: hidden;
+      position: relative;
+      background:
+        linear-gradient(rgba(249,244,255,0.5), rgba(249,244,255,0.5)),
+        url('https://lh3.googleusercontent.com/d/11zZLzdtS3eA9uXHmnvtHMbXMiv7yk_rH') no-repeat center center;
+      background-size: cover;
+      background-position: center 8%;
+    }
+
+    /* ── Soft background blobs ── */
+    .bg-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.45;
+      pointer-events: none;
+    }
+    .blob-1 { width: 420px; height: 420px; background: #fbc2eb; top: -120px; left: -100px; animation: drift1 9s ease-in-out infinite; }
+    .blob-2 { width: 340px; height: 340px; background: #a1c4fd; bottom: -80px; right: -80px; animation: drift2 11s ease-in-out infinite; }
+    .blob-3 { width: 260px; height: 260px; background: #ffecd2; top: 50%; left: 50%; transform: translate(-50%,-50%); animation: drift1 13s ease-in-out infinite reverse; }
+    @keyframes drift1 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(30px,20px);} }
+    @keyframes drift2 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(-25px,15px);} }
+
+    /* ── Card ── */
+    .card {
+      background: var(--card-bg);
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.8);
+      border-radius: 28px;
+      padding: 48px 40px 44px;
+      width: min(400px, 90vw);
+      box-shadow: 0 20px 60px rgba(180,100,140,0.15), 0 4px 16px rgba(0,0,0,0.06);
+      text-align: center;
+      animation: riseIn 0.9s cubic-bezier(0.22,1,0.36,1) both;
+      position: relative;
+      z-index: 2;
+      background:
+        
+        url('https://lh3.googleusercontent.com/d/13Aj7v9QVEYEa8TWCff8Zl7gOjmWoRDF7') no-repeat center center;
+      background-size: cover;
+      background-position: calc(100% - -30px) center;
+      overflow: hidden;
+    }
+    @keyframes riseIn {
+      from { opacity:0; transform: translateY(36px) scale(0.96); }
+      to   { opacity:1; transform: translateY(0)    scale(1);    }
+    }
+
+    /* ── Lock icon ── */
+    .lock-wrap {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, #ff9a9e, #fecfef);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 30px;
+      box-shadow: 0 8px 24px rgba(244,63,114,0.28);
+      animation: pulse 3s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 8px 24px rgba(244,63,114,0.28); transform: scale(1); }
+      50%      { box-shadow: 0 12px 32px rgba(244,63,114,0.45); transform: scale(1.05); }
+    }
+
+    .eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 6vw, 34px);
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: #9d7aab;
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+
+    /* ── Input group ── */
+    .input-group {
+      position: relative;
+      margin-bottom: 16px;
+    }
+    input[type="password"] {
+      width: 100%;
+      padding: 15px 52px 15px 20px;
+      border-radius: 14px;
+      border: 2px solid #eeddf5;
+      background: rgba(255,255,255,0.9);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+      letter-spacing: 2px;
+    }
+    input[type="password"]:focus {
+      border-color: var(--lavender);
+      box-shadow: 0 0 0 4px rgba(196,181,253,0.2);
+    }
+    input[type="password"]::placeholder {
+      letter-spacing: 0;
+      color: #c9a8d8;
+      font-size: 13px;
+    }
+    .eye-btn {
+      position: absolute;
+      right: 14px; top: 50%;
+      transform: translateY(-50%);
+      background: none; border: none;
+      cursor: pointer; font-size: 18px;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+    .eye-btn:hover { opacity: 1; }
+
+    /* ── Unlock button ── */
+    .unlock-btn {
+      width: 100%;
+      padding: 15px;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(135deg, #f43f72 0%, #c084fc 100%);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      letter-spacing: 0.4px;
+      box-shadow: 0 6px 20px rgba(244,63,114,0.35);
+      transition: transform 0.18s, box-shadow 0.18s, opacity 0.18s;
+      position: relative;
+      overflow: hidden;
+    }
+    .unlock-btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.12);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .unlock-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(244,63,114,0.4); }
+    .unlock-btn:hover::after { opacity: 1; }
+    .unlock-btn:active { transform: translateY(0) scale(0.98); }
+
+    /* ── Error message ── */
+    .error-msg {
+      margin-top: 14px;
+      font-size: 13px;
+      color: #e05c7a;
+      background: #fff0f4;
+      border: 1px solid #ffc5d1;
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: none;
+      animation: shake 0.4s ease;
+    }
+    .error-msg.show { display: block; }
+    @keyframes shake {
+      0%,100%{transform:translateX(0);}
+      20%{transform:translateX(-6px);}
+      40%{transform:translateX(6px);}
+      60%{transform:translateX(-4px);}
+      80%{transform:translateX(4px);}
+    }
+
+    /* ── Page overlay ── */
+    .overlay {
+      position: fixed; inset: 0;
+      background: var(--mist);
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+    }
+    .overlay.active { opacity: 1; pointer-events: all; }
+
+    /* ── PREMIUM FLOATING HEARTS ── */
+    .hearts-layer { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
+
+    .fheart {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      animation: premiumFloat linear forwards;
+      transform-origin: center;
+      will-change: transform, opacity;
+    }
+
+    @keyframes premiumFloat {
+      0%   { opacity: 0; transform: translateY(0) translateX(0) scale(0.6) rotate(0deg); }
+      8%   { opacity: 1; }
+      50%  { opacity: 0.85; transform: translateY(var(--fy50)) translateX(var(--fx50)) scale(1.05) rotate(var(--fr50)); }
+      88%  { opacity: 0.2; }
+      100% { opacity: 0; transform: translateY(var(--fy100)) translateX(var(--fx100)) scale(0.75) rotate(var(--fr100)); }
+    }
+
+    /* Background ambient hearts */
+    .ambient-heart {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      animation: ambientFloat linear infinite;
+      will-change: transform, opacity;
+    }
+    @keyframes ambientFloat {
+      0%   { opacity: 0; transform: translateY(105vh) translateX(0) rotate(0deg) scale(0.8); }
+      6%   { opacity: 0.4; }
+      94%  { opacity: 0.15; }
+      100% { opacity: 0; transform: translateY(-15vh) translateX(var(--ax)) rotate(360deg) scale(1.1); }
+    }
+
+    /* ── Success popup ── */
+    .success-popup {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .success-popup.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .popup-content {
+      background: linear-gradient(135deg, rgba(250,220,255,0.97), rgba(230,220,255,0.97));
+      border: 1px solid rgba(255,255,255,0.8);
+      padding: 36px 48px;
+      border-radius: 28px;
+      text-align: center;
+      box-shadow: 0 30px 80px rgba(244,63,114,0.35), 0 0 0 1px rgba(255,255,255,0.3);
+      animation: popIn 0.55s cubic-bezier(0.34,1.56,0.64,1) both;
+      max-width: 88vw;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.55) translateY(20px); opacity: 0; }
+      to   { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    .popup-content h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18px, 5vw, 24px);
+      background: linear-gradient(135deg, #f43f72, #c084fc, #60a5fa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+    .popup-content p {
+      color: #9d7aab;
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
+  <div class="bg-blob blob-3"></div>
+
+  <div class="hearts-layer" id="heartsLayer"></div>
+  <div class="overlay" id="overlay"></div>
+
+  <div class="card">
+    <div class="lock-wrap">🔑</div>
+    <p class="eyebrow">Something special</p>
+    <h1>Just For You</h1>
+    <p class="subtitle">A little secret is waiting on the other side.<br/>Do you know the password?</p>
+
+    <div class="input-group">
+      <input type="password" id="pwInput" placeholder="Hint: what is my tele password 👀" autocomplete="off"/>
+      <button class="eye-btn" id="eyeBtn" onclick="toggleVisibility()" title="Show/hide">👁</button>
+    </div>
+
+    <button class="unlock-btn" onclick="unlock()">Unlock ✨</button>
+
+    <div class="error-msg" id="errorMsg">
+      ✗ Thappu mah🥲😥💭
+    </div>
+  </div>
+
+  <div class="success-popup" id="successPopup">
+    <div class="popup-content">
+      <h2>💖 Finally unlock pannita!</h2>
+      <p>Ready for something special? 😅✨</p>
+    </div>
+  </div>
+
+<script>
+/* ════════════════════════════════════════════════
+   PREMIUM HEART ENGINE — shared across all pages
+   ════════════════════════════════════════════════ */
+const HEART_EMOJIS   = ['💙','💜','🩷','✨','🌸','💫','💖','❤️','💗','🩶','🌟','💝','🌺','🎀'];
+const AMBIENT_EMOJIS = ['💙','💜','🩷','💖','❤️','💗','🩶','💝'];
+
+let _lastPointerHeart = 0;
+const _THROTTLE = 90; // ms
+
+/**
+ * Spawn a premium floating heart at (x, y) on the page
+ */
+function spawnPointerHeart(x, y) {
+  const now = Date.now();
+  if (now - _lastPointerHeart < _THROTTLE) return;
+  _lastPointerHeart = now;
+
+  const emoji = HEART_EMOJIS[Math.floor(Math.random() * HEART_EMOJIS.length)];
+  const size  = 13 + Math.random() * 14; // px  — small hearts slow, big hearts faster
+  const dur   = size < 20 ? (5.5 + Math.random() * 3.5) : (3.8 + Math.random() * 2.5); // depth effect
+
+  // Drift paths
+  const driftX = (Math.random() - 0.5) * 60;
+  const fy50   = -(60 + Math.random() * 80) + 'px';
+  const fy100  = -(160 + Math.random() * 140) + 'px';
+  const fx50   = (driftX * 0.55).toFixed(1) + 'px';
+  const fx100  = driftX.toFixed(1) + 'px';
+  const fr50   = ((Math.random() - 0.5) * 18).toFixed(1) + 'deg';
+  const fr100  = ((Math.random() - 0.5) * 32).toFixed(1) + 'deg';
+
+  const el = document.createElement('span');
+  el.textContent = emoji;
+  el.style.cssText = `
+    left: ${x + (Math.random() * 14 - 7)}px;
+    top:  ${y + (Math.random() * 10 - 5)}px;
+    font-size: ${size}px;
+    animation-duration: ${dur}s;
+    animation-delay: 0s;
+    filter: drop-shadow(0 0 ${3 + size * 0.25}px rgba(244,63,114,0.75))
+            drop-shadow(0 0 ${6 + size * 0.4}px rgba(192,132,252,0.5));
+    --fy50: ${fy50}; --fx50: ${fx50}; --fr50: ${fr50};
+    --fy100: ${fy100}; --fx100: ${fx100}; --fr100: ${fr100};
+  `;
+  el.className = 'fheart';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), dur * 1000 + 200);
+}
+
+/* Mouse move — desktop */
+document.addEventListener('mousemove', e => spawnPointerHeart(e.clientX, e.clientY));
+
+/* Touch move — mobile (drag) */
+document.addEventListener('touchmove', e => {
+  const t = e.touches[0];
+  spawnPointerHeart(t.clientX, t.clientY);
+}, { passive: true });
+
+/* ── Ambient background hearts ── */
+const layer = document.getElementById('heartsLayer');
+function spawnAmbient() {
+  const emoji = AMBIENT_EMOJIS[Math.floor(Math.random() * AMBIENT_EMOJIS.length)];
+  const size  = 11 + Math.random() * 13;
+  const dur   = 10 + Math.random() * 12;
+  const ax    = ((Math.random() - 0.5) * 80).toFixed(1) + 'px';
+
+  const el = document.createElement('span');
+  el.className = 'ambient-heart';
+  el.textContent = emoji;
+  el.style.cssText = `
+    left: ${Math.random() * 100}vw;
+    font-size: ${size}px;
+    opacity: 0;
+    animation-duration: ${dur}s;
+    animation-delay: ${Math.random() * 4}s;
+    filter: drop-shadow(0 0 4px rgba(244,63,114,0.5));
+    --ax: ${ax};
+  `;
+  layer.appendChild(el);
+  setTimeout(() => el.remove(), (dur + 5) * 1000);
+}
+setInterval(spawnAmbient, 900);
+for (let i = 0; i < 7; i++) spawnAmbient();
+
+/* ── Toggle visibility ── */
+function toggleVisibility() {
+  const input = document.getElementById('pwInput');
+  const btn   = document.getElementById('eyeBtn');
+  if (input.type === 'password') {
+    input.type = 'text';
+    btn.textContent = '🙈';
+  } else {
+    input.type = 'password';
+    btn.textContent = '👁';
+  }
+}
+
+/* ── Unlock logic ── */
+const CORRECT = '2704200508082004';
+
+function unlock() {
+  const val     = document.getElementById('pwInput').value.trim().toLowerCase();
+  const errorEl = document.getElementById('errorMsg');
+
+  if (val === CORRECT) {
+    errorEl.classList.remove('show');
+
+    // Heart burst
+    for (let i = 0; i < 25; i++) {
+      setTimeout(() => {
+        const rx = Math.random() * window.innerWidth;
+        const ry = Math.random() * window.innerHeight;
+        spawnPointerHeart(rx, ry);
+      }, i * 80);
+    }
+
+    const popup = document.getElementById('successPopup');
+    popup.classList.add('show');
+
+    setTimeout(() => {
+      document.getElementById('overlay').classList.add('active');
+      setTimeout(() => { window.location.href = 'gallery_final.html'; }, 600);
+    }, 2800);
+
+  } else {
+    errorEl.classList.remove('show');
+    void errorEl.offsetWidth;
+    errorEl.classList.add('show');
+    document.getElementById('pwInput').value = '';
+  }
+}
+
+document.getElementById('pwInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') unlock();
+});
+</script>
+</body>
+</html>
