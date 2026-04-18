@@ -517,7 +517,7 @@
     <span class="cake-icon">🎂</span>
 
     <h1 class="main-heading">
-      🎉 Happiest Birthday
+      🎉Happiest Birthday🥳
       <span class="name">Paithiyam</span>
       <span class="msg-emoji" id="mainHeart">💙</span>
     </h1>
@@ -585,8 +585,8 @@
       <div class="msg-line">
         <span class="msg-emoji">💫</span>
         <div class="msg-text">
-           Edhukum Kavala padadha🪄
-          <small>Life oru naal Nee nenacha vida azhaga Marum🧡</small>
+           Edha nenachum Kavala padadha🪄
+          <small>Life oru naal Nee nenachadha vida azhaga Marum🧡Unakku Pudichadha Sei</small>
         </div>
       </div>
        
@@ -598,12 +598,20 @@
           <small>Because that is precisely what you are.</small>
         </div>
       </div>
+
+      <div class="msg-line">
+        <span class="msg-emoji">🎯</span>
+        <div class="msg-text">
+          All the very Best mah✍️📖
+          <small>Exam Nalla Pannu thangoo Silly mistake dhan naraiya pandra adha konjem pathuko😅 Sums nalla practice pannu</small>
+        </div>
+      </div>
       
       <div class="msg-line">
         <span class="msg-emoji"></span>
         <div class="msg-text">
-          Surprice ah irukuma ennanu therila edho ennala mudinjadhu Bday Gift😂,edhana thappah irundha sorry mah  enakku edhum apdi therila irundhalum soldren😉 
-          <small></small>
+          Surprice ah irukuma ennanu therila edho ennala mudinjadhu Bday Surprice😂 
+          <small>edhana thappah irundha sorry mah  enakku edhum apdi therila irundhalum soldren😉</small>
         </div>
       </div>
 
@@ -716,20 +724,33 @@ msgLines.forEach((line, i) => {
 });
 
 /* ════ MESSAGE REVEAL — ONE TIME, NO HIDE ════ */
+// 💌 ONLY ONE CARD OPEN AT A TIME
 document.querySelectorAll('.msg-line').forEach(card => {
   card.addEventListener('click', () => {
-    if (card.classList.contains('active')) return;
+
+    // 🔒 close all other cards
+    document.querySelectorAll('.msg-line').forEach(c => {
+      if (c !== card) c.classList.remove('active');
+    });
+
+    // 🔓 open current card
     card.classList.add('active');
-    // Mini heart burst at card center
+
+    // 💥 mini heart burst
     const rect = card.getBoundingClientRect();
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
+
     for (let i = 0; i < 6; i++) {
       setTimeout(() => {
-        spawnPointerHeart(cx + (Math.random() - 0.5) * 80, cy + (Math.random() - 0.5) * 40);
+        spawnPointerHeart(
+          cx + (Math.random() - 0.5) * 80,
+          cy + (Math.random() - 0.5) * 40
+        );
       }, i * 60);
     }
   });
+
   // Mobile tap
   card.addEventListener('touchend', () => {
     if (card.classList.contains('active')) return;
@@ -819,7 +840,7 @@ setTimeout(launchConfetti, 500);
 setTimeout(launchConfetti, 3800);
 
 /* ════ SPARKLES ════ */
-const sparkleEmojis = ['✨','💫','🌸','💙','🎉','🌟','🩷',];
+/*const sparkleEmojis = ['✨','💫','🌸','💙','🎉','🌟','🩷',];
 function spawnSparkle() {
   const sp = document.createElement('span');
   sp.className = 'sparkle';
@@ -834,8 +855,8 @@ function spawnSparkle() {
   document.body.appendChild(sp);
   sp.addEventListener('animationend', () => sp.remove());
 }
-setInterval(spawnSparkle, 3000);
-
+setInterval(spawnSparkle, 3000); 
+*/
 /* ════ MAIN HEART BURST ════ */
 const mainHeart = document.getElementById('mainHeart');
 let heartBurst = false;
@@ -869,7 +890,7 @@ mainHeart.addEventListener('click', (e) => {
   }
 
   // ✨ Sprinkle shimmer
-  const sprinkleList = ['✨','💫','⭐','🌟','💥','🎊','🎉','🔮'];
+  const sprinkleList = ['💙','💜','🩷','✨','🌸','💫','💖','❤️','💗','🩶','🌟','💝','🌺','🎀'];
   for (let i = 0; i < 42; i++) {
     const sp = document.createElement('span');
     sp.className = 'sprinkle-item';
@@ -916,9 +937,9 @@ function showBirthdayPopup() {
   popup.className = 'bday-popup';
   popup.innerHTML = `
     <span class="popup-emojis">🎂 🎉 🎁</span>
-    <div class="popup-title">Happy Birthday<br>Thangameyyy! 💖</div>
+    <div class="popup-title">இனிய பிறந்தநாள் நல்வாழ்த்துக்கள்!<br>Thangameyyy! 💖</div>
     <div class="popup-sub">Wishing you all the happiness & love 🥺✨</div>
-    <span class="popup-emojis">🌸 💙 🌺 💜 🌷</span>
+    <span class="popup-emojis">💙 💖 💜 💫</span>
     <button class="popup-close" onclick="closePopup()">Close 💫</button>
   `;
   document.body.appendChild(popup);
